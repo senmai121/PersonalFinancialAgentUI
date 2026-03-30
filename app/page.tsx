@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ProfileForm from '@/components/ProfileForm'
 import ChatWindow from '@/components/ChatWindow'
 import InvestmentChart from '@/components/InvestmentChart'
@@ -9,6 +9,10 @@ import type { ChatMessage } from '@/types'
 type Phase = 'form' | 'chat'
 
 export default function Home() {
+  useEffect(() => {
+    fetch('/api/proxy/FinancialAgent/chat', { method: 'POST' }).catch(() => {})
+  }, [])
+
   const [phase, setPhase] = useState<Phase>('form')
   const [sessionId, setSessionId] = useState('')
   const [messages, setMessages] = useState<ChatMessage[]>([])
